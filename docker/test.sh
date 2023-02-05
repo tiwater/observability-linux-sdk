@@ -29,7 +29,7 @@ for arch_and_cflag in "i386 -m32" "x86_64 -m64"; do
     "-DCMAKE_CXX_FLAGS=$2" \
     "-DCMAKE_C_FLAGS=$2" \
     -B "${TEST_BUILD_DIR}-$1" \
-    /home/build/yocto/sources/observability-linux-sdk/meta-ticos/recipes-ticos/ticosd/files/ticosd
+    /home/build/yocto/sources/eticos-linux-sdk/meta-ticos/recipes-ticos/ticosd/files/ticosd
   cd "${TEST_BUILD_DIR}-$1"
   make --trace "-j$(nproc)"
   make test ARGS=--output-on-failure

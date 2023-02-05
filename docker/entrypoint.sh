@@ -27,7 +27,7 @@ fi
 set +u
 
 cd "${HOME}/yocto"
-TEMPLATECONF=../observability-linux-sdk/meta-ticos-example/conf/ source "${HOME}/yocto/sources/poky/oe-init-build-env" build
+TEMPLATECONF=../eticos-linux-sdk/meta-ticos-example/conf/ source "${HOME}/yocto/sources/poky/oe-init-build-env" build
 
 # run any args given to us (defaults to Dockerfile's CMD)
 exec "$@"

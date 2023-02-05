@@ -16,8 +16,8 @@
 extern "C" {
 #endif
 
-bool ticosd_is_reboot_reason_valid(eTicosRebootReason reboot_reason);
-const char *ticosd_reboot_reason_str(eTicosRebootReason reboot_reason);
+bool ticosd_is_reboot_reason_valid(ticosRebootReason reboot_reason);
+const char *ticosd_reboot_reason_str(ticosRebootReason reboot_reason);
 
 #ifdef __cplusplus
 }

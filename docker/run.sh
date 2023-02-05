@@ -37,7 +37,7 @@ while getopts "bv:c:e:r:tv:" options; do
     esac
 done
 
-metamount="--mount type=bind,source=${PWD}/..,target=/home/build/yocto/sources/observability-linux-sdk"
+metamount="--mount type=bind,source=${PWD}/..,target=/home/build/yocto/sources/eticos-linux-sdk"
 sourcesmount="--mount type=volume,source=yocto-sources-${YOCTO_RELEASE},target=/home/build/yocto/sources"
 
 if [ -n "$TICOS_CLI_DIST_PATH" ];

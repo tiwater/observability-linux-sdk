@@ -7,13 +7,13 @@ be configured. To see how the environment is built, read [`qemu.py`](./qemu.py).
 To run a specific test:
 
 ```console
-# pytest ~/yocto/sources/observability-linux-sdk/test-scripts/01_ticosd_service_test.py
+# pytest ~/yocto/sources/eticos-linux-sdk/test-scripts/01_ticosd_service_test.py
 ```
 
 To run all tests:
 
 ```console
-# pytest ~/yocto/sources/observability-linux-sdk/test-scripts
+# pytest ~/yocto/sources/eticos-linux-sdk/test-scripts
 ```
 
 > NOTE: some of these tests access the Ticos API and require a project with

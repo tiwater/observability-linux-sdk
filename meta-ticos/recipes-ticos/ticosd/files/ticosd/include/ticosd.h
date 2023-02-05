@@ -32,7 +32,7 @@ typedef enum {
   kTicosdConfigTypeInteger,
   kTicosdConfigTypeString,
   kTicosdConfigTypeObject
-} eTicosdConfigType;
+} ticosdConfigType;
 
 typedef struct {
   sTicosdPlugin *handle;
@@ -48,7 +48,7 @@ typedef struct {
 
 typedef struct {
   const char *key;
-  eTicosdConfigType type;
+  ticosdConfigType type;
   union {
     bool b;
     int d;
@@ -63,15 +63,15 @@ typedef enum {
   kTicosdTxDataType_CoreUpload = 'C',
   kTicosdTxDataType_CoreUploadWithGzip = 'c',
   kTicosdTxDataType_Attributes = 'A',
-} eTicosdTxDataType;
+} ticosdTxDataType;
 
 typedef struct __attribute__((__packed__)) TicosdTxData {
-  uint8_t type;  // eTicosdTxDataType
+  uint8_t type;  // ticosdTxDataType
   uint8_t payload[];
 } sTicosdTxData;
 
 typedef struct __attribute__((__packed__)) TicosdTxDataAttributes {
-  uint8_t type;  // eTicosdTxDataType
+  uint8_t type;  // ticosdTxDataType
   time_t timestamp;
   char json[];
 } sTicosdTxDataAttributes;

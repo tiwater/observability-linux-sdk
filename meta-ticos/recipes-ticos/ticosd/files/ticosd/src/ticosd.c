@@ -120,7 +120,7 @@ static bool prv_ticosd_process_tx_queue(sTicosd *handle) {
 
     const char *payload = (const char *)txdata->payload;
 
-    eTicosdNetworkResult rc = kTicosdNetworkResult_ErrorNoRetry;
+    ticosdNetworkResult rc = kTicosdNetworkResult_ErrorNoRetry;
     switch (txdata->type) {
       case kTicosdTxDataType_RebootEvent:
         rc = ticosd_network_post(handle->network, "/api/v0/events", kTicosdHttpMethod_POST,

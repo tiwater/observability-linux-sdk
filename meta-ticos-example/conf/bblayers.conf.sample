@@ -8,8 +8,8 @@ BBFILES ?= ""
 YOCTOROOT = "${@os.path.abspath(os.path.join("${TOPDIR}", os.pardir))}"
 
 BBLAYERS ?= " \
-    ${YOCTOROOT}/sources/observability-linux-sdk/meta-ticos \
-    ${YOCTOROOT}/sources/observability-linux-sdk/meta-ticos-example \
+    ${YOCTOROOT}/sources/eticos-linux-sdk/meta-ticos \
+    ${YOCTOROOT}/sources/eticos-linux-sdk/meta-ticos-example \
     ${YOCTOROOT}/sources/meta-openembedded/meta-multimedia \
     ${YOCTOROOT}/sources/meta-openembedded/meta-networking \
     ${YOCTOROOT}/sources/meta-openembedded/meta-oe \

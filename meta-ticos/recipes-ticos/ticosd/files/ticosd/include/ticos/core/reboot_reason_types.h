@@ -73,7 +73,7 @@ typedef enum TicosResetReason {
   // A reset which is triggered when the processor faults while already
   // executing from a fault handler.
   kTicosRebootReason_Lockup = 0x9401,
-} eTicosRebootReason;
+} ticosRebootReason;
 
 #ifdef __cplusplus
 }

@@ -36,7 +36,7 @@ struct TicosdPlugin {
 };
 
 typedef struct TicosdRebootReasonSource {
-  bool (*read_and_clear)(sTicosd *ticosd, eTicosRebootReason *reboot_reason);
+  bool (*read_and_clear)(sTicosd *ticosd, ticosRebootReason *reboot_reason);
   const char *name;
 } sTicosdRebootReasonSource;
 
@@ -50,7 +50,7 @@ typedef struct TicosdRebootReasonSource {
  * @return sTicosdTxData* Tx data with the reboot event
  */
 static sTicosdTxData *prv_reboot_build_event(sTicosd *ticosd,
-                                                const eTicosRebootReason reason,
+                                                const ticosRebootReason reason,
                                                 const char *userinfo, uint32_t *payload_size) {
   const sTicosdDeviceSettings *settings = ticosd_get_device_settings(ticosd);
 
@@ -102,7 +102,7 @@ static sTicosdTxData *prv_reboot_build_event(sTicosd *ticosd,
  * @param reboot_reason Reason to store
  */
 static void prv_reboot_write_reboot_reason(sTicosd *ticosd,
-                                           eTicosRebootReason reboot_reason) {
+                                           ticosRebootReason reboot_reason) {
   char *file = ticosd_generate_rw_filename(ticosd, "lastrebootreason");
   if (!file) {
     fprintf(stderr, "reboot:: Failed to get reboot reason file\n");
@@ -128,7 +128,7 @@ static void prv_reboot_write_reboot_reason(sTicosd *ticosd,
  * @return int reboot_reason read from file
  */
 static bool prv_reboot_read_and_clear_reboot_reason_from_file(
-  const char *file, eTicosRebootReason *reboot_reason_out) {
+  const char *file, ticosRebootReason *reboot_reason_out) {
   FILE *const fd = fopen(file, "r");
   if (!fd) {
     fprintf(stderr, "reboot:: Failed to open %s: %s\n", file, strerror(errno));
@@ -157,7 +157,7 @@ static bool prv_reboot_read_and_clear_reboot_reason_from_file(
  * @return int reboot_reason read from file
  */
 static bool prv_reboot_read_and_clear_reboot_reason_internal(sTicosd *ticosd,
-                                                             eTicosRebootReason *reboot_reason) {
+                                                             ticosRebootReason *reboot_reason) {
   char *file = ticosd_generate_rw_filename(ticosd, "lastrebootreason");
   if (!file) {
     fprintf(stderr, "reboot:: Failed to allocate lastrebootreason path string\n");
@@ -175,7 +175,7 @@ static bool prv_reboot_read_and_clear_reboot_reason_internal(sTicosd *ticosd,
  * @return int reboot_reason read from file
  */
 static bool prv_reboot_read_and_clear_reboot_reason_customer(sTicosd *ticosd,
-                                                             eTicosRebootReason *reboot_reason) {
+                                                             ticosRebootReason *reboot_reason) {
   const char *file;
   if (!ticosd_get_string(ticosd, "reboot_plugin", "last_reboot_reason_file", &file)) {
     fprintf(stderr, "reboot:: Failed to get configuration option last_reboot_reason_file\n");
@@ -291,7 +291,7 @@ static void prv_reboot_destroy(sTicosdPlugin *handle) {
 }
 
 static bool prv_reboot_read_and_clear_reboot_reason_pstore(sTicosd *ticosd,
-                                                           eTicosRebootReason *reboot_reason) {
+                                                           ticosRebootReason *reboot_reason) {
   if (access(PSTORE_DMESG_FILE, F_OK) != 0) {
     return false;
   }
@@ -316,15 +316,15 @@ static const sTicosdRebootReasonSource s_reboot_reason_sources[] = {
   },
 };
 
-static eTicosRebootReason prv_resolve_reboot_reason(sTicosd *ticosd, const char *boot_id) {
+static ticosRebootReason prv_resolve_reboot_reason(sTicosd *ticosd, const char *boot_id) {
   // Read & clear all reboot reason sources. s_reboot_reason_sources is ordered by priority (high
   // to low). The first non-unknown reason found is used as the reason to report.
 
-  eTicosRebootReason prioritized_reason = kTicosRebootReason_Unknown;
+  ticosRebootReason prioritized_reason = kTicosRebootReason_Unknown;
   bool prioritized_reason_set = false;
 
   for (size_t i = 0; i < TICOS_ARRAY_SIZE(s_reboot_reason_sources); ++i) {
-    eTicosRebootReason reason = kTicosRebootReason_Unknown;
+    ticosRebootReason reason = kTicosRebootReason_Unknown;
     if (s_reboot_reason_sources[i].read_and_clear(ticosd, &reason)) {
       if (!prioritized_reason_set) {
         prioritized_reason = reason;
@@ -343,7 +343,7 @@ static eTicosRebootReason prv_resolve_reboot_reason(sTicosd *ticosd, const char 
 }
 
 static void prv_track_reboot(sTicosd *ticosd, const char *boot_id) {
-  const eTicosRebootReason reboot_reason = prv_resolve_reboot_reason(ticosd, boot_id);
+  const ticosRebootReason reboot_reason = prv_resolve_reboot_reason(ticosd, boot_id);
 
   uint32_t payload_size;
   sTicosdTxData *data = prv_reboot_build_event(ticosd, reboot_reason, NULL, &payload_size);

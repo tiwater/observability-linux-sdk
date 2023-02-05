@@ -109,7 +109,7 @@ The Dockerfile and supporting files are all inside
 - `/` : main container - Just contains the core operating system
 - `~/yocto/build` : volume mount - Contains the build, images, etc.
 - `~/yocto/sources` : volume mount - Contains the git clones.
-- `~/yocto/sources/observability-linux-sdk` : bind mount - Contains this repository
+- `~/yocto/sources/eticos-linux-sdk` : bind mount - Contains this repository
 - `~/yocto/build/downloads` : Optional bind mount from host - Contains any
   packages downloaded via the yocto build, currently about 4.8GB
 

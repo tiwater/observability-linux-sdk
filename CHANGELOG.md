@@ -109,7 +109,7 @@ and this project adheres to
   [systemd-pstore.service], remove the `systemd_%.bbappend` file from the SDK.
 
 [1.1.0]:
-  https://github.com/ticos/observability-linux-sdk/releases/tag/1.1.0-kirkstone
+  https://github.com/tiwater/observability-linux-sdk/releases/tag/1.1.0-kirkstone
 [systemd-pstore.service]:
   https://www.freedesktop.org/software/systemd/man/systemd-pstore.service.html
 [docs-reboots]: https://ticos.io/linux-reboots
@@ -179,17 +179,17 @@ affected will be reprocessed server-side to address this issue. This will
 ### Added
 
 - Support for Yocto version 3.1 (code name "Dunfell"). See the
-  [`dunfell` branch](https://github.com/ticos/observability-linux-sdk/tree/dunfell)
+  [`dunfell` branch](https://github.com/tiwater/observability-linux-sdk/tree/dunfell)
   of the repository.
 
 ### Changed
 
 - The SDK repository no longer has a `main` branch. The variant of the SDK that
   supports Yocto 4.0 ("Kirkstone") can be found on the
-  [branch named `kirkstone`](https://github.com/ticos/observability-linux-sdk/tree/kirkstone).
+  [branch named `kirkstone`](https://github.com/tiwater/observability-linux-sdk/tree/kirkstone).
   Likewise, the variant of the SDK that supports Yocto 3.1 ("Dunfell) can be
   found on
-  [the branch called `dunfell`](https://github.com/ticos/observability-linux-sdk/tree/dunfell).
+  [the branch called `dunfell`](https://github.com/tiwater/observability-linux-sdk/tree/dunfell).
 
 ## [0.3.0] - 2022-08-31
 
@@ -250,10 +250,10 @@ package][nginx-pid-report] for a discussion on the topic.
 - An example Yocto image using ticosd and the features above
   (meta-ticos-example).
 
-[0.1.0]: https://github.com/ticos/observability-linux-sdk/releases/tag/0.1.0
-[0.2.0]: https://github.com/ticos/observability-linux-sdk/releases/tag/0.2.0
-[0.3.0]: https://github.com/ticos/observability-linux-sdk/releases/tag/0.3.0
+[0.1.0]: https://github.com/tiwater/observability-linux-sdk/releases/tag/0.1.0
+[0.2.0]: https://github.com/tiwater/observability-linux-sdk/releases/tag/0.2.0
+[0.3.0]: https://github.com/tiwater/observability-linux-sdk/releases/tag/0.3.0
 [0.3.1]:
-  https://github.com/ticos/observability-linux-sdk/releases/tag/0.3.1-kirkstone
+  https://github.com/tiwater/observability-linux-sdk/releases/tag/0.3.1-kirkstone
 [1.0.0]:
-  https://github.com/ticos/observability-linux-sdk/releases/tag/1.0.0-kirkstone
+  https://github.com/tiwater/observability-linux-sdk/releases/tag/1.0.0-kirkstone

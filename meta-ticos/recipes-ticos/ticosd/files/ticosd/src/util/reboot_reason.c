@@ -8,7 +8,7 @@
 
 #include "ticos/util/reboot_reason.h"
 
-bool ticosd_is_reboot_reason_valid(eTicosRebootReason reboot_reason) {
+bool ticosd_is_reboot_reason_valid(ticosRebootReason reboot_reason) {
   switch (reboot_reason) {
     case kTicosRebootReason_Unknown:
     case kTicosRebootReason_UserShutdown:
@@ -42,7 +42,7 @@ bool ticosd_is_reboot_reason_valid(eTicosRebootReason reboot_reason) {
   }
 }
 
-const char *ticosd_reboot_reason_str(eTicosRebootReason reboot_reason) {
+const char *ticosd_reboot_reason_str(ticosRebootReason reboot_reason) {
   switch (reboot_reason) {
     case kTicosRebootReason_Unknown:
       return "Unknown";

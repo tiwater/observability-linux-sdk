@@ -50,7 +50,7 @@ USER build
 WORKDIR /home/build
 
 RUN echo " \
-    alias q='/home/build/yocto/sources/observability-linux-sdk/test-scripts/runqemu.py'\n\
+    alias q='/home/build/yocto/sources/eticos-linux-sdk/test-scripts/runqemu.py'\n\
     alias b='bitbake ticos-image'\n\
     alias cc='rm -rf /home/build/yocto/build/conf'\n\
     alias ct='rm -rf /home/build/yocto/build/tmp'\n\

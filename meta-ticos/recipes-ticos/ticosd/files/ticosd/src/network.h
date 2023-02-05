@@ -18,7 +18,7 @@
 typedef enum TicosdHttpMethod {
   kTicosdHttpMethod_POST,
   kTicosdHttpMethod_PATCH
-} eTicosdHttpMethod;
+} ticosdHttpMethod;
 
 typedef enum TicosdNetworkResult {
   /**
@@ -35,17 +35,17 @@ typedef enum TicosdNetworkResult {
    * not transient.
    */
   kTicosdNetworkResult_ErrorNoRetry,
-} eTicosdNetworkResult;
+} ticosdNetworkResult;
 
 typedef struct TicosdNetwork sTicosdNetwork;
 
 sTicosdNetwork *ticosd_network_init(sTicosd *ticosd);
 void ticosd_network_destroy(sTicosdNetwork *handle);
-eTicosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endpoint,
-                                               eTicosdHttpMethod method, const char *payload,
+ticosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endpoint,
+                                               ticosdHttpMethod method, const char *payload,
                                                char **data, size_t *len);
 
-eTicosdNetworkResult ticosd_network_file_upload(sTicosdNetwork *handle,
+ticosdNetworkResult ticosd_network_file_upload(sTicosdNetwork *handle,
                                                       const char *commit_endpoint,
                                                       const char *payload, bool is_gzipped);
 

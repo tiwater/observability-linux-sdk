@@ -29,7 +29,7 @@ well-established, battle-tested open-source software. The daemon `ticosd`
 implements Ticos-specific features and also acts as a configuration agent.
 
 [source-ticosd]:
-  https://github.com/ticos/observability-linux-sdk/blob/-/meta-ticos/recipes-ticos/ticosd/files/ticosd
+  https://github.com/tiwater/observability-linux-sdk/blob/-/meta-ticos/recipes-ticos/ticosd/files/ticosd
 
 ## Prerequisites
 
