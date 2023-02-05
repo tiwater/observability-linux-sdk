@@ -93,7 +93,7 @@ static void prv_log_first_succeeded_request(sTicosdNetwork *handle, const char *
   }
 }
 
-static ticosdNetworkResult prv_check_error(sTicosdNetwork *handle, const CURLcode res,
+static eTicosdNetworkResult prv_check_error(sTicosdNetwork *handle, const CURLcode res,
                                                const char *method, const char *url) {
   long http_code = 0;
   curl_easy_getinfo(handle->curl, CURLINFO_HTTP_CODE, &http_code);
@@ -236,13 +236,13 @@ fail:
   return NULL;
 }
 
-static ticosdNetworkResult prv_file_upload_prepare(sTicosdNetwork *handle,
+static eTicosdNetworkResult prv_file_upload_prepare(sTicosdNetwork *handle,
                                                        const char *endpoint, const size_t filesize,
                                                        char **upload_url, char **upload_token,
                                                        bool is_gzipped) {
   char *recvdata = NULL;
   size_t recvlen;
-  ticosdNetworkResult rc;
+  eTicosdNetworkResult rc;
 
   const char *content_encoding = is_gzipped ? "gzip" : NULL;
   struct json_object *request_body = prv_prepare_request_body(handle, filesize, content_encoding);
@@ -271,10 +271,10 @@ cleanup:
   return rc;
 }
 
-static ticosdNetworkResult prv_file_upload(sTicosdNetwork *handle, const char *url,
+static eTicosdNetworkResult prv_file_upload(sTicosdNetwork *handle, const char *url,
                                                const char *filename, const size_t filesize,
                                                bool is_gzipped) {
-  ticosdNetworkResult rc;
+  eTicosdNetworkResult rc;
   struct curl_slist *headers = NULL;
 
   FILE *fd;
@@ -304,9 +304,9 @@ cleanup:
   return rc;
 }
 
-static ticosdNetworkResult prv_file_upload_commit(sTicosdNetwork *handle,
+static eTicosdNetworkResult prv_file_upload_commit(sTicosdNetwork *handle,
                                                       const char *endpoint, const char *token) {
-  ticosdNetworkResult rc;
+  eTicosdNetworkResult rc;
   char *payload = NULL;
   const sTicosdDeviceSettings *settings = ticosd_get_device_settings(handle->ticosd);
 
@@ -429,9 +429,9 @@ void ticosd_network_destroy(sTicosdNetwork *handle) {
  * @param payload Data to send
  * @param data Data returned if available
  * @param len Length of data returned
- * @return A ticosdNetworkResult value indicating whether the POST was successful or not.
+ * @return A eTicosdNetworkResult value indicating whether the POST was successful or not.
  */
-ticosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endpoint,
+eTicosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endpoint,
                                                enum TicosdHttpMethod method, const char *payload,
                                                char **data, size_t *len) {
   char *url = prv_create_url(handle, endpoint);
@@ -463,7 +463,7 @@ ticosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endp
   const CURLcode res = curl_easy_perform(handle->curl);
   curl_slist_free_all(headers);
 
-  const ticosdNetworkResult result =
+  const eTicosdNetworkResult result =
     prv_check_error(handle, res, prv_method_as_string(method), url);
 
   free(url);
@@ -483,10 +483,10 @@ ticosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *endp
   return result;
 }
 
-ticosdNetworkResult ticosd_network_file_upload(sTicosdNetwork *handle,
+eTicosdNetworkResult ticosd_network_file_upload(sTicosdNetwork *handle,
                                                       const char *commit_endpoint,
                                                       const char *filename, bool is_gzipped) {
-  ticosdNetworkResult rc;
+  eTicosdNetworkResult rc;
   char *upload_url = NULL;
   char *upload_token = NULL;
 

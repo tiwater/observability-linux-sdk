@@ -26,7 +26,7 @@ typedef enum TicosCoreElfMetadataKey {
   kTicosCoreElfMetadataKey_HardwareVersion = 5,
   kTicosCoreElfMetadataKey_SoftwareType = 6,
   kTicosCoreElfMetadataKey_SoftwareVersion = 7,
-} ticosCoreElfMetadataKey;
+} eTicosCoreElfMetadataKey;
 
 typedef struct TicosCoreElfMetadata {
   const char *linux_sdk_version;

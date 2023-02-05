@@ -120,7 +120,7 @@ static bool prv_process_load_segment(sTicosCoreElfReader *reader,
 }
 
 static void prv_append_ticos_metadata_note(sTicosCoreElfTransformer *transformer) {
-  // TODO: TICOS-7205 Add warnings to metadata ELF note
+  // TODO: Ticos-7205 Add warnings to metadata ELF note
   const size_t note_buffer_size =
     ticos_core_elf_metadata_note_calculate_size(transformer->metadata);
   uint8_t *note_buffer = malloc(note_buffer_size);

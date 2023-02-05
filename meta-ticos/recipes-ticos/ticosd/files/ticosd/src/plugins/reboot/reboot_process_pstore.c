@@ -16,7 +16,7 @@
 #include <unistd.h>
 
 void ticos_reboot_process_pstore_files(char *pstore_dir) {
-  // TODO: TICOS-7805 Process last kmsg/console logs
+  // TODO: Ticos-7805 Process last kmsg/console logs
   fprintf(stderr, "reboot:: Cleaning up pstore...\n");
 
   FTS *fts = NULL;
