@@ -69,21 +69,18 @@ static sTicosdTxData *prv_reboot_build_event(sTicosd *ticosd,
 
   char *str = (char *)data->payload;
   const int ret = snprintf(str, max_event_size,
-                           "["
                            "{"
-                           "\"type\": \"trace\","
-                           "\"software_type\": \"%s\","
-                           "\"software_version\": \"%s\","
-                           "\"device_serial\": \"%s\","
-                           "\"hardware_version\": \"%s\","
-                           "\"sdk_version\": \"0.5.0\","
-                           "\"event_info\": {"
-                           "\"reason\": %d"
+                           "\"Type\": \"Trace\","
+                           "\"SoftwareType\": \"%s\","
+                           "\"SoftwareVersion\": \"%s\","
+                           "\"HardwareVersion\": \"%s\","
+                           "\"SdkVersion\": \"0.2.0\","
+                           "\"EventInfo\": {"
+                           "\"Reason\": %d"
                            "},"
-                           "\"user_info\": {%s}"
-                           "}"
-                           "]",
-                           software_type, software_version, settings->device_id,
+                           "\"UserInfo\": {%s}"
+                           "}",
+                           software_type, software_version,
                            settings->hardware_version, reason, userinfo ? userinfo : "");
   if (ret >= (int)max_event_size || ret < 0) {
     fprintf(stderr, "reboot:: Failed to build event structure %d\n", ret);

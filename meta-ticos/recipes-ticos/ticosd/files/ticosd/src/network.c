@@ -449,6 +449,7 @@ eTicosdNetworkResult ticosd_network_post(sTicosdNetwork *handle, const char *end
   headers = curl_slist_append(headers, "Accept: application/json");
   headers = curl_slist_append(headers, "Content-Type: application/json");
   headers = curl_slist_append(headers, "charset: utf-8");
+  headers = curl_slist_append(headers, "X-Tiwater-Debug: true");
   headers = curl_slist_append(headers, handle->project_key_header);
 
   curl_easy_setopt(handle->curl, CURLOPT_URL, url);

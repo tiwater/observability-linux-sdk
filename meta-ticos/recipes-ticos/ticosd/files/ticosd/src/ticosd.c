@@ -70,9 +70,9 @@ static void prv_ticosd_usage(void) {
   printf("      --config-file <file>       : Configuration file\n");
   printf("      --daemonize                : Daemonize process\n");
   printf("      --enable-data-collection   : Enable data collection, will restart the main "
-         "ticosd service\n");
+        "ticosd service\n");
   printf("      --disable-data-collection  : Disable data collection, will restart the main "
-         "ticosd service\n");
+        "ticosd service\n");
   printf("      --enable-dev-mode          : Enable developer mode (restarts ticosd)\n");
   printf("      --disable-dev-mode         : Disable developer mode (restarts ticosd)\n");
   printf("  -h, --help                     : Display this help and exit\n");
@@ -119,18 +119,26 @@ static bool prv_ticosd_process_tx_queue(sTicosd *handle) {
     const sTicosdTxData *txdata = (const sTicosdTxData *)queue_entry;
 
     const char *payload = (const char *)txdata->payload;
+    char *path;
 
     eTicosdNetworkResult rc = kTicosdNetworkResult_ErrorNoRetry;
     switch (txdata->type) {
       case kTicosdTxDataType_RebootEvent:
-        rc = ticosd_network_post(handle->network, "/api/v0/events", kTicosdHttpMethod_POST,
+        if (ticos_asprintf(&path, "/chunks/%s/json",
+                      handle->settings->device_id) == -1) {
+          fprintf(stderr, "ticosd:: Unable to allocate memory for event path.\n");
+          rc = kTicosdNetworkResult_ErrorRetryLater;
+          break;
+        }
+        rc = ticosd_network_post(handle->network, path, kTicosdHttpMethod_POST,
                                     payload, NULL, 0);
+        free(path);
         break;
       case kTicosdTxDataType_CoreUpload:
       case kTicosdTxDataType_CoreUploadWithGzip: {
         const bool is_gzipped = txdata->type == kTicosdTxDataType_CoreUploadWithGzip;
         rc = ticosd_network_file_upload(handle->network, "/api/v0/upload/elf_coredump", payload,
-                                           is_gzipped);
+                                          is_gzipped);
         break;
       }
       case kTicosdTxDataType_Attributes: {
@@ -512,7 +520,7 @@ bool ticosd_txdata(sTicosd *handle, const sTicosdTxData *data, uint32_t payload_
     return true;
   }
   return ticosd_queue_write(handle->queue, (const uint8_t *)data,
-                               sizeof(sTicosdTxData) + payload_size);
+                              sizeof(sTicosdTxData) + payload_size);
 }
 
 bool ticosd_get_boolean(sTicosd *handle, const char *parent_key, const char *key, bool *val) {
@@ -527,7 +535,7 @@ bool ticosd_get_string(sTicosd *handle, const char *parent_key, const char *key,
 }
 
 bool ticosd_get_objects(sTicosd *handle, const char *parent_key,
-                           sTicosdConfigObject **objects, int *len) {
+                          sTicosdConfigObject **objects, int *len) {
   return ticosd_config_get_objects(handle->config, parent_key, objects, len);
 }
 

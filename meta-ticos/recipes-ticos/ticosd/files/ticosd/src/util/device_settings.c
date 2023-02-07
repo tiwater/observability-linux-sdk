@@ -12,7 +12,7 @@
 
 #include "ticosd.h"
 
-#define DEFAULT_BASE_URL "https://device.ticos.com"
+#define DEFAULT_BASE_URL "https://api.dev.ticos.cc"
 
 #define INFO_BINARY "ticos-device-info"
 
