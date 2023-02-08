@@ -17,7 +17,8 @@
 
 typedef enum TicosdHttpMethod {
   kTicosdHttpMethod_POST,
-  kTicosdHttpMethod_PATCH
+  kTicosdHttpMethod_PATCH,
+  kTicosdHttpMethod_GET
 } eTicosdHttpMethod;
 
 typedef enum TicosdNetworkResult {

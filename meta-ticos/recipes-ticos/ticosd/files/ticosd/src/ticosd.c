@@ -137,7 +137,13 @@ static bool prv_ticosd_process_tx_queue(sTicosd *handle) {
       case kTicosdTxDataType_CoreUpload:
       case kTicosdTxDataType_CoreUploadWithGzip: {
         const bool is_gzipped = txdata->type == kTicosdTxDataType_CoreUploadWithGzip;
-        rc = ticosd_network_file_upload(handle->network, "/api/v0/upload/elf_coredump", payload,
+        if (ticos_asprintf(&path, "/chunks/%s/url",
+                      handle->settings->device_id) == -1) {
+          fprintf(stderr, "ticosd:: Unable to allocate memory for upload coredump path.\n");
+          rc = kTicosdNetworkResult_ErrorRetryLater;
+          break;
+        }
+        rc = ticosd_network_file_upload(handle->network, path, payload,
                                           is_gzipped);
         break;
       }
