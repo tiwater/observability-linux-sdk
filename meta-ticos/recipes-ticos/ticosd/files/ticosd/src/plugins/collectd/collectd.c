@@ -25,7 +25,7 @@
 #define DEFAULT_FOOTER_INCLUDE_OUTPUT_FILE "/tmp/collectd-footer-include.conf"
 #define DEFAULT_INTERVAL_SECS 3600
 
-#define COLLECTD_PATH "/api/v0/collectd"
+#define COLLECTD_PATH "/logstash"
 #define TICOS_HEADER "Ticos-Project-Key"
 
 struct TicosdPlugin {
@@ -111,9 +111,8 @@ bool prv_generate_write_http(sTicosdPlugin *handle, FILE *fd) {
   int low_speed_limit = 0;
   int timeout = 0;
 
-  char *url_fmt = "%s%s/%s/%s/%s/%s";
-  if (ticos_asprintf(&url, url_fmt, base_url, COLLECTD_PATH, settings->device_id,
-                        settings->hardware_version, software_type, software_version) == -1) {
+  char *url_fmt = "%s%s";
+  if (ticos_asprintf(&url, url_fmt, base_url, COLLECTD_PATH) == -1) {
     fprintf(stderr, "collectd:: Failed to create url buffer\n");
     result = false;
     goto cleanup;
@@ -132,9 +131,13 @@ bool prv_generate_write_http(sTicosdPlugin *handle, FILE *fd) {
                          "<Plugin write_http>\n"
                          "  <Node \"ticos\">\n"
                          "    URL \"%s\"\n"
-                         "    VerifyPeer true\n"
-                         "    VerifyHost true\n"
+                         "#    VerifyPeer true\n"
+                         "#    VerifyHost true\n"
                          "    Header \"%s\"\n"
+                         "    Header \"deviceId: %s\"\n"
+                         "    Header \"hardwareVersion: %s\"\n"
+                         "    Header \"softwareType: %s\"\n"
+                         "    Header \"softwareVersion: %s\"\n"
                          "    Format \"JSON\"\n"
                          "    Metrics true\n"
                          "    Notifications false\n"
@@ -144,7 +147,8 @@ bool prv_generate_write_http(sTicosdPlugin *handle, FILE *fd) {
                          "    Timeout %d\n"
                          "  </Node>\n"
                          "</Plugin>\n\n";
-  if (fprintf(fd, write_http_fmt, interval_seconds, url, add_header, store_rates ? "true" : "false",
+  if (fprintf(fd, write_http_fmt, interval_seconds, url, add_header, settings->device_id, settings->hardware_version, software_type,
+        software_version, store_rates ? "true" : "false",
               buffer_size, low_speed_limit, timeout) == -1) {
     fprintf(stderr, "collectd:: Failed to write write_http statement\n");
     result = false;
